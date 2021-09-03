@@ -17,7 +17,7 @@ const box = (props) => {
     }
     return(
         <div className={classes.Box}>
-            <h1>Person Manager</h1>
+            <h1>React Person Manager</h1>
             <p className={assignedClasses.join(' ')}>This is really working</p>
             <button className={btnClass}
             onClick={props.clicked}>Toggle Persons</button>
