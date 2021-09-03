@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
-import Box from '../components/Box/Box'
+import Box from '../components/Box/Box';
+import withClass from '../hoc/withClass';
 
 class App extends Component {
   constructor(props){
@@ -16,7 +17,8 @@ class App extends Component {
       {  id: '1', name: 'Pera', age: 30}
     ],
      otherState: 'some other value',
-     showPersons: false
+     showPersons: false,
+     showBox: true
   }
 
   static getDerivedStateFromProps(props, state){
@@ -33,6 +35,14 @@ class App extends Component {
     console.log('[App.js] componentDidMount');
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js] shouldComponentUpdate');
+    return true;
+  }
+
+  componentDidUpdate(){
+    console.log('[App.js] componentDidUpdate');
+  }
  
   switchNameHandler = (newName) => {
     // console.log('Was clicked!')
@@ -89,11 +99,14 @@ class App extends Component {
         />;
       }
     return ( 
-        <div className={classes.App}>
-          <Box 
+        <div classes={classes.App}>
+          <button onClick={() => {
+            this.setState({ showBox: false });
+          }}>Remove Box</button>
+          {this.state.showBox ? <Box 
           showPersons={this.state.showPersons}
-          persons={this.state.persons} 
-          clicked={this.togglePersonsHandler}/>
+          personsLength={this.state.personsLenght} 
+          clicked={this.togglePersonsHandler}/>: null}
           {persons}
         </div>
     );
@@ -101,4 +114,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withClass(App, classes.App);

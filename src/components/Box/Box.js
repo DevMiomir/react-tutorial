@@ -1,18 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './Box.css'
 
 
 const box = (props) => {
+    useEffect(() => {
+      console.log('[Box.js] useEffect');
+      return () => {
+        console.log('[Box.js] clean up working in progress in useEffect');
+      }
+    }, []);
+
+    useEffect(() => {
+      console.log('[Box.js] 2nd useEffect');
+      return () => {
+        console.log('[Box.js] cleanup work in useEffect');
+      };
+    });
+    
     const assignedClasses = [];
     let btnClass = '';
     if(props.showPersons){
         btnClass = classes.Red;
     }
 
-    if(props.persons.length <= 2) {
+    if(props.personsLength <= 2) {
       assignedClasses.push(classes.red); // classes = ['red']
     }
-    if(props.persons.length <= 1){
+    if(props.personsLength <= 1){
       assignedClasses.push(classes.bold); // classes = ['red', 'bold']
     }
     return(
@@ -25,4 +39,4 @@ const box = (props) => {
     )
 };
 
-export default box;
+export default React.memo(box);
